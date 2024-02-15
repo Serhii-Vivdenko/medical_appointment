@@ -1,1 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgres://localhost:5432/Doctor_Appointment
+    username: postgres
+    password: serhii
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgresSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
 
