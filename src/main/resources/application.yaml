@@ -10,15 +10,19 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
-
-#    database: postgresql
+      ddl-auto: update
+    database: postgresql
 #    database-platform: org.hibernate.dialect.PostgresSQLDialect
-#    show-sql: true
+    show-sql: true
 #    properties:
 #      hibernate:
 #        format_sql: true
 
-
+#  spring.jpa.database=POSTGRESQL
+#  spring.jpa.show-sql=true
+#  spring.jpa.generate-ddl=true
+#  spring.jpa.hibernate.ddl-auto=update
+#  spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+#  spring.sql.init.mode=never
 
 
