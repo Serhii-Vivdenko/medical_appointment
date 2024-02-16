@@ -5,3 +5,7 @@ databaseChangeLog:
       file: db/changelog/v1/set-doctor.sql
   - include:
       file: db/changelog/v1/patients.sql
+  - include:
+      file: db/changelog/v1/appointments.sql
+  - include:
+      file: db/changelog/v1/set-appointments.sql
