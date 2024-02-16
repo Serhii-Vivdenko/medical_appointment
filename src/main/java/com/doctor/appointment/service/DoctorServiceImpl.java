@@ -12,9 +12,9 @@ import java.util.Locale;
 import java.util.Optional;
 
 @Service
-//@AllArgsConstructor
+@AllArgsConstructor
 public class DoctorServiceImpl implements DoctorService{
-    @Autowired
+
     private DoctorRepository doctorRepository;
 
     @Override
