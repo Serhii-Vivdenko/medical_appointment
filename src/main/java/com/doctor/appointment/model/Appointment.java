@@ -1,13 +1,10 @@
 package com.doctor.appointment.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,9 +14,18 @@ public class Appointment {
     @Id
     @Generated
     private Long id;
-    private LocalDateTime startDataLocal;
-    private LocalDateTime endDataLocal;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime; //исправить data на date
 
-//    @ManyToOne
-//    private
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+
 }

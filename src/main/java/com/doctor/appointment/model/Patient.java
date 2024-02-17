@@ -9,17 +9,17 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "doctors")
-public
-class Doctor {
+@Table(name = "patients")
+public class Patient {
     @Id
-    @Generated()
+    @Generated
     private Long id;
     private String firstName;
     private String lastName;
-    private String speciality;
+    private String mail;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
     List<Appointment> appointments;
+
 }

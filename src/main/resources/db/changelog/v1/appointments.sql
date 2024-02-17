@@ -1,8 +1,8 @@
 CREATE TABLE public.appointments
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
-    start_data_time time without time zone NOT NULL,
-    tnd_data_time time without time zone NOT NULL,
+    start_date_time timestamp without time zone NOT NULL,
+    end_date_time timestamp without time zone NOT NULL,
     doctor_id bigint,
     patient_id bigint,
     PRIMARY KEY (id),
