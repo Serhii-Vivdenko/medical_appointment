@@ -1,7 +1,9 @@
 package com.doctor.appointment.controller;
 
-import com.doctor.appointment.dto.appointment.CreateRequestAppointment;
-import com.doctor.appointment.dto.appointment.CreateResponseAppointment;
+import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.CreateResponseAppointmentDto;
+import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.UpdateResponseAppointmentDto;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
@@ -25,14 +27,22 @@ public class Controller {
     public List<GetAllDoctors> findAll() {
         return doctorService.findAllDoctor();
     }
-    //создать приём докторов
 
-    @PutMapping
-    public CreateResponseAppointment createAppointment(@RequestBody CreateRequestAppointment createAppointment) {
-        Appointment appointment = appointmentServes.create(createAppointment);
+    //создать приём док
+    @PostMapping
+    public CreateResponseAppointmentDto createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
+        Appointment appointment = appointmentServes.create(createDto);
+
         return MapperAppointment.toDto(appointment);
-
     }
 
-
+    // обновить приём
+    @PutMapping("/{update-id}")
+    public CreateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
+                                                          @RequestBody UpdateRequestAppointmentDto updateDto) {
+        Appointment found = appointmentServes.readById(id);
+        Appointment appointment = MapperAppointment.updateToEntity(updateDto, found);
+        appointmentServes.update(appointment);
+        return MapperAppointment.toDto(appointment);
+    }
 }

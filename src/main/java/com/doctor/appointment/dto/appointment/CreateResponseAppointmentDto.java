@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class CreateResponseAppointment {
+public class CreateResponseAppointmentDto {
     Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime startDateTime;

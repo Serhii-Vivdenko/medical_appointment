@@ -1,13 +1,13 @@
 package com.doctor.appointment.service;
 
-import com.doctor.appointment.dto.appointment.CreateRequestAppointment;
+import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.repository.AppointmentRepository;
-import com.doctor.appointment.repository.DoctorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,11 +16,28 @@ public class AppointmentImpl implements AppointmentServes{
 
     private AppointmentRepository appointmentRepository;
     @Override
-    public Appointment create(CreateRequestAppointment appointmentDto) {
+    public Appointment create(CreateRequestAppointmentDto appointmentDto) {
         if(appointmentDto != null) {
             Appointment createdAppointment = MapperAppointment.toEntity(appointmentDto);
             return appointmentRepository.save(createdAppointment);
         }
         return null;
     }
+
+    @Override
+    public Appointment readById(long id) {
+        return appointmentRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Appointment " + id + "not found")
+        );
+    }
+
+    @Override
+    public Appointment update(Appointment appointment) {
+        if (appointment != null) {
+            Appointment found = readById(appointment.getId());
+            return appointmentRepository.save(found);
+        }
+        return null;
+    }
+
 }

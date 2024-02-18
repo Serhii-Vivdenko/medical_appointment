@@ -19,7 +19,7 @@ public class DoctorServiceImpl implements DoctorService{
     @Override
     public Doctor findById(long id) {
         return doctorRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Doctor not found" + id)
+                () -> new EntityNotFoundException("Doctor " + id + "not found")
         );
     }
 
