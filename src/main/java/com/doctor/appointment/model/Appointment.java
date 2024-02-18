@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Table(name = "appointments")
 public class Appointment {
     @Id
-    @Generated
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime; //исправить data на date
+    private LocalDateTime endDateTime;
 
     @ManyToOne
     @JsonBackReference
@@ -26,6 +26,5 @@ public class Appointment {
     @JsonBackReference
     @JoinColumn(name = "patient_id")
     private Patient patient;
-
 
 }

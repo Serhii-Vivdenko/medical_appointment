@@ -19,7 +19,6 @@ class Doctor {
     private String lastName;
     private String speciality;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     List<Appointment> appointments;
 }

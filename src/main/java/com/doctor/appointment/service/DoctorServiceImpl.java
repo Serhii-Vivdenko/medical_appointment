@@ -1,15 +1,14 @@
 package com.doctor.appointment.service;
 
+import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.repository.DoctorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +24,10 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public List<Doctor> findAllDoctor() {
-        return doctorRepository.findAll();
+    public List<GetAllDoctors> findAllDoctor() {
+        return doctorRepository.findAll().stream()
+                .map(GetAllDoctors::new)
+                .collect(Collectors.toList());
+
     }
 }

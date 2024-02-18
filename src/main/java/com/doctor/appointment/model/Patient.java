@@ -18,7 +18,6 @@ public class Patient {
     private String lastName;
     private String mail;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
     List<Appointment> appointments;
 
