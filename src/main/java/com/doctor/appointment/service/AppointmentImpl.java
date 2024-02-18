@@ -34,8 +34,8 @@ public class AppointmentImpl implements AppointmentServes{
     @Override
     public Appointment update(Appointment appointment) {
         if (appointment != null) {
-            Appointment found = readById(appointment.getId());
-            return appointmentRepository.save(found);
+//            Appointment found = readById(appointment.getId());
+            return appointmentRepository.save(appointment);
         }
         return null;
     }

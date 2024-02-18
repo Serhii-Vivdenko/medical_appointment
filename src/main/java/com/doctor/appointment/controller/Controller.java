@@ -38,11 +38,11 @@ public class Controller {
 
     // обновить приём
     @PutMapping("/{update-id}")
-    public CreateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
+    public UpdateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
         Appointment found = appointmentServes.readById(id);
         Appointment appointment = MapperAppointment.updateToEntity(updateDto, found);
         appointmentServes.update(appointment);
-        return MapperAppointment.toDto(appointment);
+        return MapperAppointment.utoDto(appointment);
     }
 }

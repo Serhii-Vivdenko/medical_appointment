@@ -3,6 +3,7 @@ package com.doctor.appointment.mapper;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
 import com.doctor.appointment.dto.appointment.CreateResponseAppointmentDto;
 import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.UpdateResponseAppointmentDto;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.model.Patient;
@@ -27,30 +28,43 @@ public class MapperAppointment {
     }
 
     public static Appointment updateToEntity(UpdateRequestAppointmentDto dto, Appointment appointment) {
+
         Appointment updatedAppointment = new Appointment();
         updatedAppointment.setId(appointment.getId());
 
         Patient patient = new Patient();
         patient.setId(dto.getPatientId());
 
+        Doctor doctor = new Doctor();
+        doctor.setId(dto.getDoctorId());
 
-        if (appointment.getStartDateTime() != null){
+        if (dto.getStartDateTime() != null) {
             updatedAppointment.setStartDateTime(dto.getStartDateTime());
         } else {
             updatedAppointment.setStartDateTime(appointment.getStartDateTime());
         }
 
-        if (appointment.getEndDateTime() != null){
+        if(dto.getEndDateTime() != null) {
             updatedAppointment.setEndDateTime(dto.getEndDateTime());
         } else {
             updatedAppointment.setEndDateTime(appointment.getEndDateTime());
         }
 
-        if(appointment.getPatient().getId() != null) {
-            updatedAppointment.setPatient(patient);
-        } else {
-            updatedAppointment.setPatient(appointment.getPatient());
-        }
+
+        updatedAppointment.setPatient(patient);
+        updatedAppointment.setDoctor(doctor);
+
+
         return updatedAppointment;
+
+    }
+    public static UpdateResponseAppointmentDto utoDto(Appointment appointment) {
+        UpdateResponseAppointmentDto dto = new UpdateResponseAppointmentDto();
+        dto.setId(appointment.getId());
+        dto.setStartDateTime(appointment.getStartDateTime());
+        dto.setEndDateTime(appointment.getEndDateTime());
+        dto.setDoctorId(appointment.getDoctor().getId());
+        dto.setPatientId(appointment.getPatient().getId());
+        return dto;
     }
 }
