@@ -4,7 +4,6 @@ import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentServes;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
@@ -46,13 +45,19 @@ public class Controller {
         return MapperAppointment.utoDto(appointment);
     }
 
+    // записаться на приём
+
+
+    // удалить приём
     @DeleteMapping("/{delete-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAppointment(@PathVariable ("delete-id") long id) {
         appointmentServes.delete(id);
     }
+
+    // получить всех приёмы с null пациентами
     @GetMapping("/free-appointments")
-    List<AppointmentByNullPatient> appointmentByNullPatients() {
+    List<AppointmentByNullPatientDto> appointmentByNullPatients() {
         return appointmentServes.findByPatientIsNull();
     }
 

@@ -1,14 +1,12 @@
 package com.doctor.appointment.service;
 
-import com.doctor.appointment.dto.appointment.AppointmentByNullPatient;
+import com.doctor.appointment.dto.appointment.AppointmentByNullPatientDto;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.repository.AppointmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,9 +49,9 @@ public class AppointmentImpl implements AppointmentServes{
     }
 
     @Override
-    public List<AppointmentByNullPatient> findByPatientIsNull() {
+    public List<AppointmentByNullPatientDto> findByPatientIsNull() {
         return appointmentRepository.findByPatientIsNull().stream()
-                .map(AppointmentByNullPatient :: new)
+                .map(AppointmentByNullPatientDto:: new)
                 .collect(Collectors.toList());
     }
 }
