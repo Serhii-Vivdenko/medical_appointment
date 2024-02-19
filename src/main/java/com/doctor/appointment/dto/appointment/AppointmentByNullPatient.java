@@ -1,0 +1,25 @@
+package com.doctor.appointment.dto.appointment;
+
+import com.doctor.appointment.model.Appointment;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+@Getter
+@Setter
+public class AppointmentByNullPatient {
+    Long id;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    LocalDateTime startDateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    LocalDateTime endDateTime;
+    Long doctorId;
+
+    public AppointmentByNullPatient(Appointment appointment) {
+        id = appointment.getId();
+        startDateTime = appointment.getStartDateTime();
+        endDateTime = appointment.getEndDateTime();
+        doctorId = appointment.getDoctor().getId();
+    }
+}

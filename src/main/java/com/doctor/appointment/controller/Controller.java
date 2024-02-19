@@ -1,26 +1,26 @@
 package com.doctor.appointment.controller;
 
-import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.CreateResponseAppointmentDto;
-import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.UpdateResponseAppointmentDto;
+import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
+import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentServes;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/doctors")
+@RequestMapping("/api")
 @AllArgsConstructor // конструктор внедряет зависимость
 public class Controller {
 
     private DoctorService doctorService;
     private AppointmentServes appointmentServes;
+//    private AppointmentRepository repository;
 
     // получить список докторов
     @GetMapping("/all")
@@ -45,4 +45,16 @@ public class Controller {
         appointmentServes.update(appointment);
         return MapperAppointment.utoDto(appointment);
     }
+
+    @DeleteMapping("/{delete-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAppointment(@PathVariable ("delete-id") long id) {
+        appointmentServes.delete(id);
+    }
+    @GetMapping("/free-appointments")
+    List<AppointmentByNullPatient> appointmentByNullPatients() {
+        return appointmentServes.findByPatientIsNull();
+    }
+
+
 }
