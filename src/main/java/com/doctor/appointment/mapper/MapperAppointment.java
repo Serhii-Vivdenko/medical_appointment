@@ -1,9 +1,6 @@
 package com.doctor.appointment.mapper;
 
-import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.CreateResponseAppointmentDto;
-import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.UpdateResponseAppointmentDto;
+import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.model.Patient;
@@ -50,15 +47,11 @@ public class MapperAppointment {
             updatedAppointment.setEndDateTime(appointment.getEndDateTime());
         }
 
-
         updatedAppointment.setPatient(patient);
         updatedAppointment.setDoctor(doctor);
-
-
         return updatedAppointment;
-
     }
-    public static UpdateResponseAppointmentDto utoDto(Appointment appointment) {
+    public static UpdateResponseAppointmentDto updateToDto(Appointment appointment) {
         UpdateResponseAppointmentDto dto = new UpdateResponseAppointmentDto();
         dto.setId(appointment.getId());
         dto.setStartDateTime(appointment.getStartDateTime());
@@ -67,4 +60,30 @@ public class MapperAppointment {
         dto.setPatientId(appointment.getPatient().getId());
         return dto;
     }
+
+    public static Appointment toMakeToEntity(ToMakeRequestAppointmentDto dto, Appointment appointment) {
+        Appointment toMakeAppointment = new Appointment();
+        Patient patient = new Patient();
+        patient.setId(dto.getPatientId());
+
+        toMakeAppointment.setId(appointment.getId());
+        toMakeAppointment.setDoctor(appointment.getDoctor());
+        toMakeAppointment.setStartDateTime(appointment.getStartDateTime());
+        toMakeAppointment.setEndDateTime(appointment.getEndDateTime());
+
+        toMakeAppointment.setPatient(patient);
+
+        return toMakeAppointment;
+    }
+    public static ToMakeResponseAppointmentDto toMakeToDto(Appointment appointment) {
+        ToMakeResponseAppointmentDto dto = new ToMakeResponseAppointmentDto();
+        dto.setId(appointment.getId());
+        dto.setStartDateTime(appointment.getStartDateTime());
+        dto.setEndDateTime(appointment.getEndDateTime());
+        dto.setDoctorId(appointment.getDoctor().getId());
+        dto.setPatientId(appointment.getPatient().getId());
+        return dto;
+    }
+
+
 }

@@ -54,4 +54,12 @@ public class AppointmentImpl implements AppointmentServes{
                 .map(AppointmentByNullPatientDto:: new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Appointment toMake(Appointment appointment) {
+        if (appointment != null) {
+            return appointmentRepository.save(appointment);
+        }
+        return null;
+    }
 }

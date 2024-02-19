@@ -12,5 +12,6 @@ public interface AppointmentServes {
     Appointment readById(long id);
     void delete(long id);
     List<AppointmentByNullPatientDto> findByPatientIsNull();
+    Appointment toMake(Appointment appointment);
 
 }
