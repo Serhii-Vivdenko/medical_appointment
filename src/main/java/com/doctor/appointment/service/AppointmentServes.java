@@ -1,6 +1,6 @@
 package com.doctor.appointment.service;
 
-import com.doctor.appointment.dto.appointment.AppointmentByNullPatientDto;
+import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
 import com.doctor.appointment.model.Appointment;
 
@@ -11,7 +11,7 @@ public interface AppointmentServes {
     Appointment update(Appointment appointment);
     Appointment readById(long id);
     void delete(long id);
-    List<AppointmentByNullPatientDto> findByPatientIsNull();
+    List<GetAllAppointmentByNullPatientDto> findByPatientIsNull();
     Appointment toMake(Appointment appointment);
-
+    void cancelAppointment(long id);
 }

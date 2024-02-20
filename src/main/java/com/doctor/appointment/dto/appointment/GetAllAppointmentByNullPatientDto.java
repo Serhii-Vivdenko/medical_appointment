@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class AppointmentByNullPatientDto {
+public class GetAllAppointmentByNullPatientDto {
     Long id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime startDateTime;
@@ -18,7 +18,7 @@ public class AppointmentByNullPatientDto {
     Long doctorId;
     Long patientId;
 
-    public AppointmentByNullPatientDto(Appointment appointment) {
+    public GetAllAppointmentByNullPatientDto(Appointment appointment) {
         id = appointment.getId();
         startDateTime = appointment.getStartDateTime();
         endDateTime = appointment.getEndDateTime();

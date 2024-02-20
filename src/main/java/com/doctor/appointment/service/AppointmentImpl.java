@@ -1,6 +1,6 @@
 package com.doctor.appointment.service;
 
-import com.doctor.appointment.dto.appointment.AppointmentByNullPatientDto;
+import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
@@ -49,9 +49,9 @@ public class AppointmentImpl implements AppointmentServes{
     }
 
     @Override
-    public List<AppointmentByNullPatientDto> findByPatientIsNull() {
+    public List<GetAllAppointmentByNullPatientDto> findByPatientIsNull() {
         return appointmentRepository.findByPatientIsNull().stream()
-                .map(AppointmentByNullPatientDto:: new)
+                .map(GetAllAppointmentByNullPatientDto:: new)
                 .collect(Collectors.toList());
     }
 
@@ -61,5 +61,10 @@ public class AppointmentImpl implements AppointmentServes{
             return appointmentRepository.save(appointment);
         }
         return null;
+    }
+
+    @Override
+    public void cancelAppointment(long id) {
+        appointmentRepository.cancelAppointmentPatient(id);
     }
 }

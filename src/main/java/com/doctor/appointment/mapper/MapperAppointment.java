@@ -84,6 +84,4 @@ public class MapperAppointment {
         dto.setPatientId(appointment.getPatient().getId());
         return dto;
     }
-
-
 }

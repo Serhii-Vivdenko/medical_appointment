@@ -4,10 +4,12 @@ import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
+import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentServes;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,6 @@ public class Controller {
 
     private DoctorService doctorService;
     private AppointmentServes appointmentServes;
-//    private AppointmentRepository repository;
 
     // ПОЛУЧИТЬ СПИСОК ВСЕХ ДОКТОРОВ
     @GetMapping("/all")
@@ -55,7 +56,6 @@ public class Controller {
         return MapperAppointment.toMakeToDto(appointment);
     }
 
-
     // УДАЛИТЬ ПРИЁМ
     @DeleteMapping("/{delete-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -65,9 +65,15 @@ public class Controller {
 
     // ПОЛУЧИЬ ВСЕ ПРИЁМЫ С NULL
     @GetMapping("/free-appointments")
-    List<AppointmentByNullPatientDto> appointmentByNullPatients() {
+    List<GetAllAppointmentByNullPatientDto> appointmentByNullPatients() {
         return appointmentServes.findByPatientIsNull();
     }
 
-
+    // ОТМЕНИТЬ ПРИЁМ
+    @PutMapping("/cancel-appointment/{id}")
+    public GetAllAppointmentByNullPatientDto cancelAppointment(@PathVariable Long id) {
+        appointmentServes.cancelAppointment(id);
+        Appointment appointment = appointmentServes.readById(id);
+        return new GetAllAppointmentByNullPatientDto(appointment);
+    }
 }
