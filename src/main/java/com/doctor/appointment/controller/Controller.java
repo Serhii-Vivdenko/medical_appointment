@@ -4,12 +4,11 @@ import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.repository.AppointmentRepository;
-import com.doctor.appointment.service.AppointmentServes;
+import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
+import com.doctor.appointment.service.impl.DoctorServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
 public class Controller {
 
     private DoctorService doctorService;
-    private AppointmentServes appointmentServes;
+    private AppointmentService appointmentService;
 
     // ПОЛУЧИТЬ СПИСОК ВСЕХ ДОКТОРОВ
     @GetMapping("/all")
@@ -31,8 +30,7 @@ public class Controller {
     // СОЗДАТЬ ПРИЁМ
     @PostMapping
     public CreateResponseAppointmentDto createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
-        Appointment appointment = appointmentServes.create(createDto);
-
+        Appointment appointment = appointmentService.create(createDto);
         return MapperAppointment.toDto(appointment);
     }
 
@@ -40,19 +38,19 @@ public class Controller {
     @PutMapping("/{update-id}")
     public UpdateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
-        Appointment found = appointmentServes.readById(id);
+        Appointment found = appointmentService.readById(id);
         Appointment appointment = MapperAppointment.updateToEntity(updateDto, found);
-        appointmentServes.update(appointment);
+        appointmentService.update(appointment);
         return MapperAppointment.updateToDto(appointment);
     }
 
     // ЗАПИСАТЬСЯ НА ПРИЁМ
-    @PutMapping("/to-make/{make-id}")
+    @PutMapping("/book/{make-id}")
     public ToMakeResponseAppointmentDto toMakeAppointment(@PathVariable ("make-id") long id,
                                                           @RequestBody ToMakeRequestAppointmentDto makeDto) {
-        Appointment found = appointmentServes.readById(id);
+        Appointment found = appointmentService.readById(id);
         Appointment appointment = MapperAppointment.toMakeToEntity(makeDto, found);
-        appointmentServes.toMake(appointment);
+        appointmentService.toMake(appointment);
         return MapperAppointment.toMakeToDto(appointment);
     }
 
@@ -60,20 +58,20 @@ public class Controller {
     @DeleteMapping("/{delete-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAppointment(@PathVariable ("delete-id") long id) {
-        appointmentServes.delete(id);
+        appointmentService.delete(id);
     }
 
-    // ПОЛУЧИЬ ВСЕ ПРИЁМЫ С NULL
+    // ПОЛУЧИЬ ВСЕ ПРИЁМЫ С БЕЗ ПАЦИЕНТА
     @GetMapping("/free-appointments")
     List<GetAllAppointmentByNullPatientDto> appointmentByNullPatients() {
-        return appointmentServes.findByPatientIsNull();
+        return appointmentService.findByPatientIsNull();
     }
 
     // ОТМЕНИТЬ ПРИЁМ
     @PutMapping("/cancel-appointment/{id}")
     public GetAllAppointmentByNullPatientDto cancelAppointment(@PathVariable Long id) {
-        appointmentServes.cancelAppointment(id);
-        Appointment appointment = appointmentServes.readById(id);
+        Appointment appointment = appointmentService.readById(id);
+        appointmentService.cancelAppointment(id);
         return new GetAllAppointmentByNullPatientDto(appointment);
     }
 }

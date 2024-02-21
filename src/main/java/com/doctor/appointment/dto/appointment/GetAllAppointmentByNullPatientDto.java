@@ -23,10 +23,6 @@ public class GetAllAppointmentByNullPatientDto {
         startDateTime = appointment.getStartDateTime();
         endDateTime = appointment.getEndDateTime();
         doctorId = appointment.getDoctor().getId();
-        if (appointment.getPatient() != null) {
-            patientId = appointment.getPatient().getId();
-        } else {
-            patientId = null;
-        }
+        patientId = null;
     }
 }

@@ -26,7 +26,7 @@ public final class Appointment {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = true)
     private Patient patient;
 
 }

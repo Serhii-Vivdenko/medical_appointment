@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class UpdateRequestAppointmentDto {
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime startDateTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime endDateTime;
     Long doctorId;
     Long patientId;

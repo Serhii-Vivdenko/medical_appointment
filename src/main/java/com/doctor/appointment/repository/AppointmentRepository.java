@@ -15,4 +15,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Modifying
     @Query("UPDATE Appointment a SET a.patient = null WHERE a.id = :appointmentId")
     void cancelAppointmentPatient(@Param("appointmentId") Long appointmentId);
+//    @Query(value = "UPDATE appointments SET patient_id = null WHERE id = ?1", nativeQuery = true)
+//    void cancelAppointmentPatient(long appointmentId);
+
 }

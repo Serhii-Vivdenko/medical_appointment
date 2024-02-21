@@ -70,7 +70,6 @@ public class MapperAppointment {
         toMakeAppointment.setDoctor(appointment.getDoctor());
         toMakeAppointment.setStartDateTime(appointment.getStartDateTime());
         toMakeAppointment.setEndDateTime(appointment.getEndDateTime());
-
         toMakeAppointment.setPatient(patient);
 
         return toMakeAppointment;

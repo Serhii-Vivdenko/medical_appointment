@@ -1,8 +1,9 @@
-package com.doctor.appointment.service;
+package com.doctor.appointment.service.impl;
 
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.repository.DoctorRepository;
+import com.doctor.appointment.service.DoctorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class DoctorServiceImpl implements DoctorService{
+public class DoctorServiceImpl implements DoctorService {
 
     private DoctorRepository doctorRepository;
 

@@ -6,7 +6,7 @@ import com.doctor.appointment.model.Appointment;
 
 import java.util.List;
 
-public interface AppointmentServes {
+public interface AppointmentService {
     Appointment create(CreateRequestAppointmentDto appointmentDto);
     Appointment update(Appointment appointment);
     Appointment readById(long id);
