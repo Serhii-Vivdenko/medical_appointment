@@ -12,7 +12,6 @@
 #    hibernate:
 #      ddl-auto: none
 #    database: postgresql
-##    database-platform: org.hibernate.dialect.PostgresSQLDialect
 #    show-sql: true
 
 server:

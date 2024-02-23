@@ -16,25 +16,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
-@ExtendWith(MockitoExtension.class)
-//@SpringBootTest
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 //@Transactional
 public class AppointmentImplTest {
 //    @Mock
-//    private AppointmentRepository appointmentRepository;
-//    private AppointmentImpl appointmentImpl;
-//    @BeforeEach
-//    void setUp() {
-//        appointmentImpl = new AppointmentImpl(appointmentRepository);
-//    }
-//
-//    @Test
-//    public void updateAppointment() {
-//        Appointment updated = appointmentImpl.readById(6);
-//        updated.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
-//        appointmentImpl.update(updated);
-//        Appointment result = appointmentImpl.readById(6);
-//        Assertions.assertEquals(LocalDateTime.parse("2024-02-20T09:00:00"), result.getStartDateTime());
-//
-//    }
+    @Autowired
+    private  AppointmentRepository appointmentRepository;
+    private AppointmentImpl appointmentImpl;
+    @BeforeEach
+    void setUp() {
+        appointmentImpl = new AppointmentImpl(appointmentRepository);
+    }
+
+    @Test
+    public void updateAppointment() {
+        Appointment updated = appointmentImpl.readById(1);
+        updated.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
+        appointmentImpl.update(updated);
+        Appointment result = appointmentImpl.readById(1);
+        Assertions.assertEquals(LocalDateTime.parse("2024-02-20T09:00:00"), result.getStartDateTime());
+
+    }
 }
