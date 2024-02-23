@@ -18,9 +18,6 @@
 server:
   port: 9091
 spring:
-#  sql:
-#    init:
-#      mode: always
   liquibase:
     enabled: false
   datasource:
