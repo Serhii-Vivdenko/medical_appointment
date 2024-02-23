@@ -27,17 +27,12 @@ public class AppointmentImplTest {
     private  AppointmentRepository appointmentRepository;
     @Autowired
     private AppointmentService appointmentService;
-//    private AppointmentImpl appointmentImpl;
-    @BeforeEach
-    void setUp() {
-        appointmentService = new AppointmentImpl(appointmentRepository);
-    }
 
     @Test
     public void read() {
         Appointment appointment = appointmentService.readById(1);
-        Assertions.assertEquals(1,appointment.getId());
 
+        Assertions.assertEquals(1,appointment.getId());
     }
 
     @Test
@@ -46,18 +41,21 @@ public class AppointmentImplTest {
         dto.setStartDateTime(LocalDateTime.parse("2024-01-20T07:30:00"));
         dto.setEndDateTime(LocalDateTime.parse("2024-01-20T08:30:00"));
         dto.setDoctorId(2L);
+
         Appointment created = appointmentService.create(dto);
-        Appointment appointment = appointmentService.readById(6);
+
         Assertions.assertEquals(LocalDateTime.parse("2024-01-20T07:30:00"),created.getStartDateTime());
-        Assertions.assertEquals(6,appointment.getId());
+        Assertions.assertEquals(6,created.getId());
 
     }
     @Test
     public void updateAppointment() {
         Appointment updated = appointmentService.readById(2);
         updated.setStartDateTime(LocalDateTime.parse("2024-01-20T11:30:00"));
+
         appointmentService.update(updated);
         Appointment result = appointmentService.readById(2);
+
         Assertions.assertEquals(LocalDateTime.parse("2024-01-20T11:30:00"), result.getStartDateTime());
     }
 
