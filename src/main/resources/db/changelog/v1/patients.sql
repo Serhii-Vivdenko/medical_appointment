@@ -11,4 +11,5 @@ ALTER TABLE IF EXISTS public.patients
     OWNER to postgres;
 
 INSERT INTO patients (first_name, last_name, mail)
-VALUES ('Pol', 'Colin', 'pol@mail.com');
+VALUES ('Pol', 'Colin', 'pol@mail.com'),
+       ('Mark', 'Muller', 'mark@mail.com');

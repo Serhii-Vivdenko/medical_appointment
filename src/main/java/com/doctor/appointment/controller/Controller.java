@@ -61,7 +61,7 @@ public class Controller {
         appointmentService.delete(id);
     }
 
-    // ПОЛУЧИЬ ВСЕ ПРИЁМЫ С БЕЗ ПАЦИЕНТА
+    // ПОЛУЧИЬ ВСЕ ПРИЁМЫ  БЕЗ ПАЦИЕНТА
     @GetMapping("/free-appointments")
     List<GetAllAppointmentByNullPatientDto> appointmentByNullPatients() {
         return appointmentService.findByPatientIsNull();

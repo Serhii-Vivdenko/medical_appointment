@@ -1,28 +1,40 @@
+#spring:
+#  liquibase:
+#    enabled: true
+#
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/Doctor_Appointment
+#    username: postgres
+#    password: serhii
+#    driver-class-name: org.postgresql.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    database: postgresql
+##    database-platform: org.hibernate.dialect.PostgresSQLDialect
+#    show-sql: true
+
+server:
+  port: 9090
 spring:
   liquibase:
-    enabled: true
-
+    enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/Doctor_Appointment
-    username: postgres
-    password: serhii
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: none
-    database: postgresql
-#    database-platform: org.hibernate.dialect.PostgresSQLDialect
+      ddl-auto: update
     show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
 
-#  spring.jpa.database=POSTGRESQL
-#  spring.jpa.show-sql=true
-#  spring.jpa.generate-ddl=true
-#  spring.jpa.hibernate.ddl-auto=update
-#  spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-#  spring.sql.init.mode=never
+  h2:
+    console:
+      enabled: true
+
 
 
