@@ -38,7 +38,6 @@ CREATE TABLE appointments
         REFERENCES patients (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-
 INSERT INTO appointments (start_date_time, end_date_time, doctor_id, patient_id)
 VALUES ('2024-02-20 09:00:00', '2024-02-20 10:00:00', 1, 1),
        ('2024-02-20 11:00:00', '2024-02-20 12:00:00', 1, null),
