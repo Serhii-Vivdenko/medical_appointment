@@ -1,30 +1,21 @@
 package com.doctor.appointment;
 
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentService;
-import com.doctor.appointment.service.impl.AppointmentImpl;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-//@ExtendWith(MockitoExtension.class)
+
 @SpringBootTest
 public class AppointmentImplTest {
-    @Autowired
-    private  AppointmentRepository appointmentRepository;
     @Autowired
     private AppointmentService appointmentService;
 
@@ -58,15 +49,17 @@ public class AppointmentImplTest {
 
         Assertions.assertEquals(LocalDateTime.parse("2024-01-20T11:30:00"), result.getStartDateTime());
     }
+    @Test
+    public void findByPatientIsNull() {
+        List<GetAllAppointmentByNullPatientDto> appointmentListNull = appointmentService.findByPatientIsNull();
+
+        Assertions.assertEquals(3,appointmentListNull.size());
+    }
+    @Test
+    public void deleteAppointment() {
+        appointmentService.delete(5);
+    }
 
 }
-
-//@ExtendWith(MockitoExtension.class)
-//public class AppointmentImplTest {
-//    @Mock
-//    private AppointmentRepository appointmentRepository;
-//    @InjectMocks
-//    private AppointmentImpl appointmentImpl;
-//}
 
 
