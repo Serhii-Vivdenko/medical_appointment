@@ -7,6 +7,7 @@ import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

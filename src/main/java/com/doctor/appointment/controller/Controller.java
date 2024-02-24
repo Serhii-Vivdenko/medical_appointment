@@ -9,6 +9,7 @@ import com.doctor.appointment.service.DoctorService;
 import com.doctor.appointment.service.impl.DoctorServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,9 +30,11 @@ public class Controller {
 
     // СОЗДАТЬ ПРИЁМ
     @PostMapping
-    public CreateResponseAppointmentDto createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<CreateResponseAppointmentDto> createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
         Appointment appointment = appointmentService.create(createDto);
-        return MapperAppointment.toDto(appointment);
+        CreateResponseAppointmentDto appointment1 = MapperAppointment.toDto(appointment);
+        return new ResponseEntity<>(appointment1,HttpStatus.CREATED);
     }
 
     // ОБНОВИЬ ПРИЁМ
