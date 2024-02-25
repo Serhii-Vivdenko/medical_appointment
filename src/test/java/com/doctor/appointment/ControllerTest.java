@@ -2,6 +2,7 @@ package com.doctor.appointment;
 
 import com.doctor.appointment.controller.Controller;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.service.AppointmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest
@@ -56,7 +58,7 @@ class ControllerTest {
     }
 
     @Test
-    void createAppointment() throws Exception {
+    public void createAppointment() throws Exception {
         CreateRequestAppointmentDto dto = new CreateRequestAppointmentDto();
         dto.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
         dto.setEndDateTime(LocalDateTime.parse("2024-02-20T10:00:00"));
@@ -70,6 +72,22 @@ class ControllerTest {
                 .andExpect(jsonPath("$.startDateTime").value("2024-02-20T09:00:00"))
                 .andExpect(jsonPath("$.endDateTime").value("2024-02-20T10:00:00"))
                 .andExpect(jsonPath("$.doctorId").value(2));
+    }
 
+    @Test
+    public void updateAppointment() throws Exception {
+        UpdateRequestAppointmentDto dto = new UpdateRequestAppointmentDto();
+        dto.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
+        dto.setDoctorId(1L);
+        dto.setPatientId(1L);
+
+        mockMvc.perform(put("/api/{update-id}", 2)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.startDateTime").value("2024-02-20T09:00:00"))
+                .andExpect(jsonPath("$.endDateTime").value("2024-02-20T12:00:00"))
+                .andExpect(jsonPath("$.doctorId").value(1))
+                .andExpect(jsonPath("$.patientId").value(1));
     }
 }

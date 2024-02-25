@@ -45,6 +45,7 @@ public class Controller {
 
     // ОБНОВИЬ ПРИЁМ
     @PutMapping("/{update-id}")
+    @ResponseStatus(HttpStatus.OK)
     public UpdateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
         Appointment found = appointmentService.readById(id);
