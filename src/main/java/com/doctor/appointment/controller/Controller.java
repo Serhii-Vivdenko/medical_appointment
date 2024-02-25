@@ -6,7 +6,6 @@ import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
-import com.doctor.appointment.service.impl.DoctorServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,14 @@ public class Controller {
     private DoctorService doctorService;
     private AppointmentService appointmentService;
 
+    //READ APPOINTMENT BY ID
+    @GetMapping("/read/{read-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetResponseReadAppointmentByIdDto readAppointmentById(@PathVariable("read-id") long id) {
+        Appointment appointment = appointmentService.readById(id);
+        return new GetResponseReadAppointmentByIdDto(appointment);
+    }
+
     // ПОЛУЧИТЬ СПИСОК ВСЕХ ДОКТОРОВ
     @GetMapping("/all")
     public List<GetAllDoctors> findAll() {
@@ -30,7 +37,6 @@ public class Controller {
 
     // СОЗДАТЬ ПРИЁМ
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CreateResponseAppointmentDto> createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
         Appointment appointment = appointmentService.create(createDto);
         CreateResponseAppointmentDto appointment1 = MapperAppointment.toDto(appointment);
@@ -72,9 +78,9 @@ public class Controller {
 
     // ОТМЕНИТЬ ПРИЁМ
     @PutMapping("/cancel-appointment/{id}")
-    public GetAllAppointmentByNullPatientDto cancelAppointment(@PathVariable Long id) {
+    public CancelResponseAppointmentDto cancelAppointment(@PathVariable Long id) {
         Appointment appointment = appointmentService.readById(id);
         appointmentService.cancelAppointment(id);
-        return new GetAllAppointmentByNullPatientDto(appointment);
+        return new CancelResponseAppointmentDto(appointment);
     }
 }

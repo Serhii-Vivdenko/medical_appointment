@@ -3,39 +3,33 @@ package com.doctor.appointment;
 import com.doctor.appointment.controller.Controller;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.model.Doctor;
-import com.doctor.appointment.model.Patient;
-import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentService;
-import com.doctor.appointment.service.DoctorService;
-import com.doctor.appointment.service.impl.AppointmentImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-@WebMvcTest(controllers = Controller.class)
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@Transactional
+@Rollback
+@AutoConfigureMockMvc
 class ControllerTest {
-    @Mock
+    @Autowired
     private AppointmentService appointmentService;
     @Autowired
     private MockMvc mockMvc;
@@ -43,35 +37,36 @@ class ControllerTest {
     @Autowired
     private Controller controller;
 
-    private CreateRequestAppointmentDto createDto;
-
-
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-//        createDto = CreateRequestAppointmentDto
-//                .builder()
-//                .startDateTime(LocalDateTime.parse("2024-02-20T09:00:00"))
-//                .endDateTime(LocalDateTime.parse("2024-02-20T10:00:00"))
-//                .doctorId(2L)
-//                .build();
+    }
+
+    @Test
+    public void read() throws Exception {
+        mockMvc.perform(get("/api/read/{read-id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.startDateTime").value("2024-02-20T09:00:00"))
+                .andExpect(jsonPath("$.endDateTime").value("2024-02-20T10:00:00"))
+                .andExpect(jsonPath("$.doctorId").value(1))
+                .andExpect(jsonPath("$.patientId").value(1));
+
     }
 
     @Test
     void createAppointment() throws Exception {
         CreateRequestAppointmentDto dto = new CreateRequestAppointmentDto();
-        dto.setId(6L);
         dto.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
         dto.setEndDateTime(LocalDateTime.parse("2024-02-20T10:00:00"));
-
-
+        dto.setDoctorId(1L);
         mockMvc.perform(post("/api")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated());
+
+        Appointment appointment = appointmentService.readById(6);
+        Assertions.assertEquals(6, appointment.getId());
     }
-
-
 }

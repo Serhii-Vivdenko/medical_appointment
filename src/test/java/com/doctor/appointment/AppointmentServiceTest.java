@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -28,7 +29,6 @@ public class AppointmentServiceTest {
     private AppointmentService appointmentService;
     @Autowired
     private Controller controller;
-
     @Test
     public void read() {
         Appointment appointment = appointmentService.readById(1);
@@ -49,7 +49,6 @@ public class AppointmentServiceTest {
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         Assertions.assertEquals(LocalDateTime.parse("2024-01-20T07:30:00"),created.getStartDateTime());
         Assertions.assertEquals(6,created.getId());
-
     }
     @Test
     public void updateAppointment() {
