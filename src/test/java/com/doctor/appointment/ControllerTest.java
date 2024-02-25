@@ -60,13 +60,16 @@ class ControllerTest {
         CreateRequestAppointmentDto dto = new CreateRequestAppointmentDto();
         dto.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
         dto.setEndDateTime(LocalDateTime.parse("2024-02-20T10:00:00"));
-        dto.setDoctorId(1L);
+        dto.setDoctorId(2L);
+
         mockMvc.perform(post("/api")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(6))
+                .andExpect(jsonPath("$.startDateTime").value("2024-02-20T09:00:00"))
+                .andExpect(jsonPath("$.endDateTime").value("2024-02-20T10:00:00"))
+                .andExpect(jsonPath("$.doctorId").value(2));
 
-        Appointment appointment = appointmentService.readById(6);
-        Assertions.assertEquals(6, appointment.getId());
     }
 }
