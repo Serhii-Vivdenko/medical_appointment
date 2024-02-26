@@ -2,13 +2,13 @@ package com.doctor.appointment;
 
 import com.doctor.appointment.controller.Controller;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
+import com.doctor.appointment.dto.appointment.ToMakeRequestAppointmentDto;
 import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
-import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.service.AppointmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,18 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
+
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest
@@ -47,13 +54,13 @@ class ControllerTest {
 
     @Test
     public void read() throws Exception {
-        mockMvc.perform(get("/api/read/{read-id}", 1))
+        mockMvc.perform(get("/api/read/{read-id}", 2))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.startDateTime").value("2024-02-20T09:00:00"))
-                .andExpect(jsonPath("$.endDateTime").value("2024-02-20T10:00:00"))
+                .andExpect(jsonPath("$.id").value(2))
+                .andExpect(jsonPath("$.startDateTime").value("2024-02-20T11:00:00"))
+                .andExpect(jsonPath("$.endDateTime").value("2024-02-20T12:00:00"))
                 .andExpect(jsonPath("$.doctorId").value(1))
-                .andExpect(jsonPath("$.patientId").value(1));
+                .andExpect(jsonPath("$.patientId", nullValue()));
 
     }
 
@@ -89,5 +96,42 @@ class ControllerTest {
                 .andExpect(jsonPath("$.endDateTime").value("2024-02-20T12:00:00"))
                 .andExpect(jsonPath("$.doctorId").value(1))
                 .andExpect(jsonPath("$.patientId").value(1));
+    }
+
+    @Test
+    public void findByPatientIsNull() throws Exception {
+        List<GetAllAppointmentByNullPatientDto> appointmentListNull = appointmentService.findByPatientIsNull();
+
+        mockMvc.perform(get("/api//free-appointments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(appointmentListNull)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(appointmentListNull.size())));// ожидаемый размер этого корневого элемента должен быть равен размеру списка appointmentListNull.
+    }
+
+    @Test
+    public void deleteAppointment() throws Exception {
+        mockMvc.perform(delete("/api/{delete-id}", 2))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void toMake() throws Exception {
+        ToMakeRequestAppointmentDto dto = new ToMakeRequestAppointmentDto();
+        dto.setPatientId(2L);
+
+        mockMvc.perform(put("/api/book/{make-id}", 4)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.patientId").value(2));
+    }
+
+    @Test
+    public void canselAppointment() throws Exception {
+
+        mockMvc.perform(put("/api/cancel-appointment/{id}", 3))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.patientId", nullValue()));
     }
 }

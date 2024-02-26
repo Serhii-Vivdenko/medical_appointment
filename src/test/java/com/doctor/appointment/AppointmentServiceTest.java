@@ -82,7 +82,6 @@ public class AppointmentServiceTest {
     @Test
     public void deleteAppointment() {
         appointmentService.delete(5);
-
     }
 
     @Test
@@ -92,6 +91,8 @@ public class AppointmentServiceTest {
 
         Assertions.assertNull(appointment.getPatient());
     }
+
+
 
 }
 
