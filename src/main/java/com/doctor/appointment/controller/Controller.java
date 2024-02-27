@@ -8,7 +8,6 @@ import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,10 +36,9 @@ public class Controller {
 
     // СОЗДАТЬ ПРИЁМ
     @PostMapping
-    public ResponseEntity<CreateResponseAppointmentDto> createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
-        Appointment appointment = appointmentService.create(createDto);
-        CreateResponseAppointmentDto appointmentResponse = MapperAppointment.toDto(appointment);
-        return new ResponseEntity<>(appointmentResponse,HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreateResponseAppointmentDto createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
+        return appointmentService.create(createDto);
     }
 
     // ОБНОВИЬ ПРИЁМ
@@ -48,10 +46,7 @@ public class Controller {
     @ResponseStatus(HttpStatus.OK)
     public UpdateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
-        Appointment found = appointmentService.readById(id);
-        Appointment appointment = MapperAppointment.updateToEntity(updateDto, found);
-        Appointment appointmentResponse = appointmentService.update(appointment);
-        return MapperAppointment.updateToDto(appointmentResponse);
+       return appointmentService.update(updateDto,id);
     }
 
     // ЗАПИСАТЬСЯ НА ПРИЁМ

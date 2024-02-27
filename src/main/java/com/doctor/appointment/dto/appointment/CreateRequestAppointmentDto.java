@@ -1,8 +1,7 @@
 package com.doctor.appointment.dto.appointment;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,8 +10,9 @@ import java.time.LocalDateTime;
 @Getter
 //@Builder
 public class CreateRequestAppointmentDto {
-    Long id;
+    @NonNull
     LocalDateTime startDateTime;
+    @NonNull
     LocalDateTime endDateTime;
     Long doctorId;
 }

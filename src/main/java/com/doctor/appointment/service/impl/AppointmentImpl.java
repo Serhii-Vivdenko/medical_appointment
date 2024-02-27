@@ -1,7 +1,6 @@
 package com.doctor.appointment.service.impl;
 
-import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
-import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
+import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.repository.AppointmentRepository;
@@ -18,12 +17,10 @@ public class AppointmentImpl implements AppointmentService {
 
     private AppointmentRepository appointmentRepository;
     @Override
-    public Appointment create(CreateRequestAppointmentDto appointmentDto) {
-        if(appointmentDto != null) {
-            Appointment createdAppointment = MapperAppointment.toEntity(appointmentDto);
-            return appointmentRepository.save(createdAppointment);
-        }
-        return null;
+    public CreateResponseAppointmentDto create(CreateRequestAppointmentDto appointmentDto) {
+        Appointment createdAppointment = MapperAppointment.toEntity(appointmentDto);
+        Appointment appointmentResponse = appointmentRepository.save(createdAppointment);
+        return MapperAppointment.toDto(appointmentResponse);
     }
 
     @Override
@@ -33,9 +30,12 @@ public class AppointmentImpl implements AppointmentService {
         );
     }
 
-    @Override
-    public Appointment update(Appointment appointment) {
-        return appointmentRepository.save(appointment);
+   @Override
+    public UpdateResponseAppointmentDto update(UpdateRequestAppointmentDto dto, long id) {
+        Appointment found = readById(id);
+        Appointment appointment = MapperAppointment.updateToEntity(dto, found);
+        Appointment responseAppointment = appointmentRepository.save(appointment);
+        return MapperAppointment.updateToDto(responseAppointment);
     }
 
     @Override
