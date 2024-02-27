@@ -23,14 +23,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.nullValue;
-
-
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest
@@ -96,7 +89,23 @@ class ControllerTest {
                 .andExpect(jsonPath("$.endDateTime").value("2024-02-20T12:00:00"))
                 .andExpect(jsonPath("$.doctorId").value(1))
                 .andExpect(jsonPath("$.patientId").value(1));
+
     }
+    @Test
+    public void updateAppointmentPatientNull() throws Exception {
+        UpdateRequestAppointmentDto dto = new UpdateRequestAppointmentDto();
+        dto.setStartDateTime(LocalDateTime.parse("2024-02-20T09:00:00"));
+        dto.setDoctorId(1L);
+        dto.setPatientId(null);
+
+        mockMvc.perform(put("/api/{update-id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.patientId", nullValue()));
+
+    }
+
 
     @Test
     public void findByPatientIsNull() throws Exception {
@@ -120,18 +129,24 @@ class ControllerTest {
         ToMakeRequestAppointmentDto dto = new ToMakeRequestAppointmentDto();
         dto.setPatientId(2L);
 
-        mockMvc.perform(put("/api/book/{make-id}", 4)
+//        Appointment appointment = appointmentService.readById(1);
+
+        mockMvc.perform(put("/api/book/{make-id}", 2)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.patientId").value(2));
+
+//        Assertions.assertEquals(2, appointment.getPatient().getId());
     }
 
     @Test
     public void canselAppointment() throws Exception {
-
+//        Appointment appointment = appointmentService.readById(3);
         mockMvc.perform(put("/api/cancel-appointment/{id}", 3))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.patientId", nullValue()));
     }
+
+
 }

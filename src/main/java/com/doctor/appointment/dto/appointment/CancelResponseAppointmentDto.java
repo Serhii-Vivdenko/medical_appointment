@@ -19,6 +19,6 @@ public class CancelResponseAppointmentDto {
         startDateTime = appointment.getStartDateTime();
         endDateTime = appointment.getEndDateTime();
         doctorId = appointment.getDoctor().getId();
-        patientId = null;
+        patientId = (appointment.getPatient() == null) ? null : appointment.getPatient().getId();
     }
 }

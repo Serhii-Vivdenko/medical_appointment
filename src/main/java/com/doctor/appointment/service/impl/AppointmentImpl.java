@@ -1,19 +1,17 @@
 package com.doctor.appointment.service.impl;
 
-import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.dto.appointment.CreateRequestAppointmentDto;
+import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.repository.AppointmentRepository;
 import com.doctor.appointment.service.AppointmentService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 @AllArgsConstructor
 public class AppointmentImpl implements AppointmentService {
@@ -37,10 +35,7 @@ public class AppointmentImpl implements AppointmentService {
 
     @Override
     public Appointment update(Appointment appointment) {
-        if (appointment != null) {
-            return appointmentRepository.save(appointment);
-        }
-        return null;
+        return appointmentRepository.save(appointment);
     }
 
     @Override

@@ -39,8 +39,8 @@ public class Controller {
     @PostMapping
     public ResponseEntity<CreateResponseAppointmentDto> createAppointment(@RequestBody CreateRequestAppointmentDto createDto) {
         Appointment appointment = appointmentService.create(createDto);
-        CreateResponseAppointmentDto appointment1 = MapperAppointment.toDto(appointment);
-        return new ResponseEntity<>(appointment1,HttpStatus.CREATED);
+        CreateResponseAppointmentDto appointmentResponse = MapperAppointment.toDto(appointment);
+        return new ResponseEntity<>(appointmentResponse,HttpStatus.CREATED);
     }
 
     // ОБНОВИЬ ПРИЁМ
@@ -50,8 +50,8 @@ public class Controller {
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
         Appointment found = appointmentService.readById(id);
         Appointment appointment = MapperAppointment.updateToEntity(updateDto, found);
-        appointmentService.update(appointment);
-        return MapperAppointment.updateToDto(appointment);
+        Appointment appointmentResponse = appointmentService.update(appointment);
+        return MapperAppointment.updateToDto(appointmentResponse);
     }
 
     // ЗАПИСАТЬСЯ НА ПРИЁМ
@@ -60,8 +60,8 @@ public class Controller {
                                                           @RequestBody ToMakeRequestAppointmentDto makeDto) {
         Appointment found = appointmentService.readById(id);
         Appointment appointment = MapperAppointment.toMakeToEntity(makeDto, found);
-        appointmentService.toMake(appointment);
-        return MapperAppointment.toMakeToDto(appointment);
+        Appointment appointmentResponse = appointmentService.toMake(appointment);
+        return MapperAppointment.toMakeToDto(appointmentResponse);
     }
 
     // УДАЛИТЬ ПРИЁМ
@@ -80,8 +80,8 @@ public class Controller {
     // ОТМЕНИТЬ ПРИЁМ
     @PutMapping("/cancel-appointment/{id}")
     public CancelResponseAppointmentDto cancelAppointment(@PathVariable Long id) {
-        Appointment appointment = appointmentService.readById(id);
         appointmentService.cancelAppointment(id);
+        Appointment appointment = appointmentService.readById(id);
         return new CancelResponseAppointmentDto(appointment);
     }
 }

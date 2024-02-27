@@ -1,18 +1,16 @@
 package com.doctor.appointment.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 //@ToString(exclude = {"doctor", "patient"})
 @Entity
 @Table(name = "appointments")
-public final class Appointment {
+public final class  Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +23,7 @@ public final class Appointment {
     private Doctor doctor;
 
     @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = true)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "patient_id")
     private Patient patient;
-
 }
