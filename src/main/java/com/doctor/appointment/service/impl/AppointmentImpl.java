@@ -60,7 +60,9 @@ public class AppointmentImpl implements AppointmentService {
     }
 
     @Override
-    public void cancelAppointment(long id) {
+    public CancelResponseAppointmentDto cancelAppointment(long id) {
         appointmentRepository.cancelAppointmentPatient(id);
+        Appointment appointment = readById(id);
+        return new CancelResponseAppointmentDto(appointment);
     }
 }

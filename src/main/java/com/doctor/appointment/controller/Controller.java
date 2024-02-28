@@ -52,7 +52,6 @@ public class Controller {
     @PutMapping("/book/{make-id}")
     public ToMakeResponseAppointmentDto toMakeAppointment(@PathVariable ("make-id") long id,
                                                           @RequestBody ToMakeRequestAppointmentDto makeDto) {
-
         return appointmentService.toMake(makeDto, id);
     }
 
@@ -72,8 +71,6 @@ public class Controller {
     // ОТМЕНИТЬ ПРИЁМ
     @PutMapping("/cancel-appointment/{id}")
     public CancelResponseAppointmentDto cancelAppointment(@PathVariable Long id) {
-        appointmentService.cancelAppointment(id);
-        Appointment appointment = appointmentService.readById(id);
-        return new CancelResponseAppointmentDto(appointment);
+        return appointmentService.cancelAppointment(id);
     }
 }

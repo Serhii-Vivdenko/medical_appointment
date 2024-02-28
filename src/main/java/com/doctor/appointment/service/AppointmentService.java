@@ -12,5 +12,5 @@ public interface AppointmentService {
     void delete(long id);
     List<GetAllAppointmentByNullPatientDto> findByPatientIsNull();
     ToMakeResponseAppointmentDto toMake(ToMakeRequestAppointmentDto appointment, long id);
-    void cancelAppointment(long id);
+    CancelResponseAppointmentDto cancelAppointment(long id);
 }
