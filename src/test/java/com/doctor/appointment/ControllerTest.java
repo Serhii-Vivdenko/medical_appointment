@@ -106,7 +106,6 @@ class ControllerTest {
 
     }
 
-
     @Test
     public void findByPatientIsNull() throws Exception {
         List<GetAllAppointmentByNullPatientDto> appointmentListNull = appointmentService.findByPatientIsNull();
@@ -129,20 +128,15 @@ class ControllerTest {
         ToMakeRequestAppointmentDto dto = new ToMakeRequestAppointmentDto();
         dto.setPatientId(2L);
 
-//        Appointment appointment = appointmentService.readById(1);
-
         mockMvc.perform(put("/api/book/{make-id}", 2)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.patientId").value(2));
-
-//        Assertions.assertEquals(2, appointment.getPatient().getId());
     }
 
     @Test
     public void canselAppointment() throws Exception {
-//        Appointment appointment = appointmentService.readById(3);
         mockMvc.perform(put("/api/cancel-appointment/{id}", 3))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.patientId", nullValue()));

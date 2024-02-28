@@ -10,8 +10,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UpdateAppointmentException.class)
-    public ResponseEntity<String> handleBadRequestException(UpdateAppointmentException e) {
+    @ExceptionHandler(AppointmentAlreadyBooked.class)
+    public ResponseEntity<String> handleBadRequestException(AppointmentAlreadyBooked e) {
+        log.info("Appointment already booked");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(CannotDeleteAppointmentException.class)
+    public ResponseEntity<String> handleCannotDeleteAppointmentException(CannotDeleteAppointmentException e) {
+        log.info("Appointment with existing patient cannot be deleted");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
