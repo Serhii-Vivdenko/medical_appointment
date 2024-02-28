@@ -52,8 +52,11 @@ public class AppointmentImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment toMake(Appointment appointment) {
-        return appointmentRepository.save(appointment);
+    public ToMakeResponseAppointmentDto toMake(ToMakeRequestAppointmentDto dto, long id) {
+        Appointment found = readById(id);
+        Appointment appointment = MapperAppointment.toMakeToEntity(dto, found);
+        Appointment appointmentResponse = appointmentRepository.save(appointment);
+        return MapperAppointment.toMakeToDto(appointmentResponse);
     }
 
     @Override

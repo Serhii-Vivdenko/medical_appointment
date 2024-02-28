@@ -2,7 +2,6 @@ package com.doctor.appointment.controller;
 
 import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
-import com.doctor.appointment.mapper.MapperAppointment;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
@@ -46,17 +45,15 @@ public class Controller {
     @ResponseStatus(HttpStatus.OK)
     public UpdateResponseAppointmentDto updateAppointment(@PathVariable ("update-id") long id,
                                                           @RequestBody UpdateRequestAppointmentDto updateDto) {
-       return appointmentService.update(updateDto,id);
+       return appointmentService.update(updateDto, id);
     }
 
     // ЗАПИСАТЬСЯ НА ПРИЁМ
     @PutMapping("/book/{make-id}")
     public ToMakeResponseAppointmentDto toMakeAppointment(@PathVariable ("make-id") long id,
                                                           @RequestBody ToMakeRequestAppointmentDto makeDto) {
-        Appointment found = appointmentService.readById(id);
-        Appointment appointment = MapperAppointment.toMakeToEntity(makeDto, found);
-        Appointment appointmentResponse = appointmentService.toMake(appointment);
-        return MapperAppointment.toMakeToDto(appointmentResponse);
+
+        return appointmentService.toMake(makeDto, id);
     }
 
     // УДАЛИТЬ ПРИЁМ
