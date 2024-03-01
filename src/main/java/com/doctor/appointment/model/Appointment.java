@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 //@ToString(exclude = {"doctor", "patient"})
 @Entity
-@Table(name = "appointments")
+@Table(name = "Appointments")
 public final class  Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public final class  Appointment {
     private Doctor doctor;
 
     @JsonBackReference
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
 }
