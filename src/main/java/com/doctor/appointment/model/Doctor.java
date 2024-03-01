@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Doctors")
+@Table(name = "doctors")
 @ToString(exclude = {"appointments"})
 public
 class Doctor {
@@ -18,7 +18,6 @@ class Doctor {
     private Long id;
     private String firstName;
     private String lastName;
-    private String speciality;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)

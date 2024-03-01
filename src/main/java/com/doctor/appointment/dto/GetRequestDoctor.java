@@ -8,5 +8,4 @@ import lombok.Setter;
 public class GetRequestDoctor {
     private String firstName;
     private String lastName;
-    private String speciality;
 }

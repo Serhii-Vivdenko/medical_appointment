@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Patients")
+@Table(name = "patients")
 @ToString(exclude = {"appointments"})
 public class Patient {
     @Id

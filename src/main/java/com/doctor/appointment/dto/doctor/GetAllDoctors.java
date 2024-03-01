@@ -10,12 +10,10 @@ public class GetAllDoctors {
     private Long id;
     private String firstName;
     private String lastName;
-    private String speciality;
 
     public GetAllDoctors(Doctor doctor) {
         id = doctor.getId();
         firstName = doctor.getFirstName();
         lastName = doctor.getLastName();
-        speciality = doctor.getSpeciality();
     }
 }

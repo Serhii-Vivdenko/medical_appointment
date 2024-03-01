@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 //@ToString(exclude = {"doctor", "patient"})
 @Entity
-@Table(name = "Appointments")
+@Table(name = "appointments")
 public final class  Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,8 @@ public final class  Appointment {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name = "Location_id")
+    private Location location;
 }
