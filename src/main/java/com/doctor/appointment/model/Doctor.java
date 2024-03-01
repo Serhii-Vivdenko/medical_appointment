@@ -31,4 +31,13 @@ class Doctor {
             inverseJoinColumns = {@JoinColumn(name = "Specialization_id")}
     )
     List<Specialization> specializations;
+
+    @ManyToMany
+    @JoinTable(
+            name = "PlaceOfWorkDoctor",
+            joinColumns = {@JoinColumn(name = "doctor_id")},
+            inverseJoinColumns = {@JoinColumn(name = "placeOfWork_id")}
+    )
+    List<Location> locations;
+
 }
