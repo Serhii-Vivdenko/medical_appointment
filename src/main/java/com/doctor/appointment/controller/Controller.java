@@ -77,8 +77,14 @@ public class Controller {
         return appointmentService.cancelAppointment(id);
     }
 
-    @GetMapping("/doctor/{find-specialization}")
-    public List<Doctor> find(@PathVariable ("find-specialization") String specialization ) {
+    // НАЙТИ ДОКТОРОВ ПО СПЕЦИАЛЬННОСТИ
+    @GetMapping("/doctor/{specialization}")
+    public List<Doctor> find(@PathVariable ("specialization") String specialization ) {
         return doctorService.findDoctorsBySpecializations(specialization);
+    }
+
+    @GetMapping("/{hospital}")
+    public List<Doctor> findByHospital(@PathVariable ("hospital") String doctors) {
+        return doctorRepository.allDoctorsByHospital(doctors);
     }
 }

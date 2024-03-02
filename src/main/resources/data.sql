@@ -62,17 +62,19 @@ VALUES ('2024-02-20 09:00:00', '2024-02-20 10:00:00', 1, 1, 1),
 
 CREATE TABLE placeOfWorkDoctors
 (
-    placeOfWork_id bigint NOT NULL,
+    Location_id bigint NOT NULL,
     doctor_id bigint NOT NULL,
-    CONSTRAINT fk_placeOfWork FOREIGN KEY (placeOfWork_id)
+    CONSTRAINT fk_placeOfWork FOREIGN KEY (Location_id)
         REFERENCES locations (id) ON UPDATE NO ACTION ON DELETE NO ACTION,
     CONSTRAINT fk_doctor FOREIGN KEY (doctor_id)
         REFERENCES doctors (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-INSERT INTO placeOfWorkDoctors (placeOfWork_id, doctor_id)
-VALUES (1,1),
-       (2,2);
+INSERT INTO placeOfWorkDoctors (Location_id, doctor_id)
+VALUES (1, 1),
+       (2, 2),
+       (1, 3),
+       (2, 3);
 
 CREATE TABLE specializations
 (

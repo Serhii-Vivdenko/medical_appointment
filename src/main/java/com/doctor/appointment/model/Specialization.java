@@ -1,7 +1,6 @@
 package com.doctor.appointment.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +15,6 @@ public class Specialization {
     private Long id;
     private String specialization;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "specializations")
     List<Doctor> doctors;
 }
