@@ -8,7 +8,8 @@ CREATE TABLE doctors
 
 INSERT INTO doctors (first_name, last_name)
 VALUES ('John', 'Doe'),
-       ('Kurt', 'Cobain');
+       ('Kurt', 'Cobain'),
+       ('Tom', 'Sawyer');
 
 CREATE TABLE patients
 (
@@ -82,7 +83,7 @@ CREATE TABLE specializations
 
 INSERT INTO specializations (specialization)
 VALUES ('surgeon'),
-       ('therapist'),
+       ('narcologist'),
        ('therapist');
 
 CREATE TABLE specializationsAndDoctors
@@ -96,6 +97,7 @@ CREATE TABLE specializationsAndDoctors
 );
 
 INSERT INTO specializationsAndDoctors (Specialization_id, doctor_id)
-VALUES (1,1),
-       (2,2),
-       (3,1);
+VALUES (1, 1),
+       (2, 2),
+       (3, 1),
+       (1, 3);

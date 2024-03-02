@@ -1,5 +1,6 @@
 package com.doctor.appointment.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -20,6 +21,7 @@ public class Location {
     @OneToMany(mappedBy = "location")
     List<Appointment> appointments;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "locations")
     List<Doctor> doctors;
 }

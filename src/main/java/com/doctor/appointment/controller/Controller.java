@@ -3,6 +3,8 @@ package com.doctor.appointment.controller;
 import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetAllDoctors;
 import com.doctor.appointment.model.Appointment;
+import com.doctor.appointment.model.Doctor;
+import com.doctor.appointment.repository.DoctorRepository;
 import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ public class Controller {
 
     private DoctorService doctorService;
     private AppointmentService appointmentService;
+    private DoctorRepository doctorRepository;
 
     //READ APPOINTMENT BY ID
     @GetMapping("/read/{read-id}")
@@ -72,5 +75,10 @@ public class Controller {
     @PutMapping("/cancel-appointment/{id}")
     public CancelResponseAppointmentDto cancelAppointment(@PathVariable Long id) {
         return appointmentService.cancelAppointment(id);
+    }
+
+    @GetMapping("/doctor/{find-specialization}")
+    public List<Doctor> find(@PathVariable ("find-specialization") String specialization ) {
+        return doctorService.findDoctorsBySpecializations(specialization);
     }
 }

@@ -73,4 +73,5 @@ public class AppointmentImpl implements AppointmentService {
         Appointment appointment = readById(id);
         return new CancelResponseAppointmentDto(appointment);
     }
+
 }

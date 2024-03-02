@@ -15,5 +15,4 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Modifying
     @Query("UPDATE Appointment a SET a.patient = null WHERE a.id = :appointmentId")
     void cancelAppointmentPatient(@Param("appointmentId") Long appointmentId);
-
 }

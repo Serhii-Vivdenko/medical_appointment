@@ -29,6 +29,10 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findAll().stream()
                 .map(GetAllDoctors::new)
                 .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Doctor> findDoctorsBySpecializations(String specialization) {
+        return doctorRepository.findDoctorsBySpecializations(specialization);
     }
 }

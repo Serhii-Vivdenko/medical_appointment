@@ -1,6 +1,6 @@
 package com.doctor.appointment.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -19,10 +19,11 @@ class Doctor {
     private String firstName;
     private String lastName;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     List<Appointment> appointments;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "SpecializationsAndDoctors",
@@ -31,6 +32,7 @@ class Doctor {
     )
     List<Specialization> specializations;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "PlaceOfWorkDoctor",
