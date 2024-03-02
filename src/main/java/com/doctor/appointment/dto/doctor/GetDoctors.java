@@ -6,12 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GetAllDoctors {
+public class GetDoctors {
     private Long id;
     private String firstName;
     private String lastName;
 
-    public GetAllDoctors(Doctor doctor) {
+    public GetDoctors(Doctor doctor) {
         id = doctor.getId();
         firstName = doctor.getFirstName();
         lastName = doctor.getLastName();

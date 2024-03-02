@@ -1,6 +1,6 @@
 package com.doctor.appointment.service.impl;
 
-import com.doctor.appointment.dto.doctor.GetAllDoctors;
+import com.doctor.appointment.dto.doctor.GetDoctors;
 import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.repository.DoctorRepository;
 import com.doctor.appointment.service.DoctorService;
@@ -25,14 +25,23 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<GetAllDoctors> findAllDoctor() {
+    public List<GetDoctors> findAllDoctor() {
         return doctorRepository.findAll().stream()
-                .map(GetAllDoctors::new)
+                .map(GetDoctors::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Doctor> findDoctorsBySpecializations(String specialization) {
-        return doctorRepository.findDoctorsBySpecializations(specialization);
+    public List<GetDoctors> findDoctorsBySpecializations(String specialization) {
+        return doctorRepository.findDoctorsBySpecializations(specialization)
+                .stream().map(GetDoctors :: new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GetDoctors> allDoctorsByHospital(String hospital) {
+        return doctorRepository.allDoctorsByHospital(hospital)
+                .stream().map(GetDoctors::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,9 +1,8 @@
 package com.doctor.appointment.controller;
 
 import com.doctor.appointment.dto.appointment.*;
-import com.doctor.appointment.dto.doctor.GetAllDoctors;
+import com.doctor.appointment.dto.doctor.GetDoctors;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.model.Doctor;
 import com.doctor.appointment.repository.DoctorRepository;
 import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
@@ -32,7 +31,7 @@ public class Controller {
 
     // ПОЛУЧИТЬ СПИСОК ВСЕХ ДОКТОРОВ
     @GetMapping("/all")
-    public List<GetAllDoctors> findAll() {
+    public List<GetDoctors> findAll() {
         return doctorService.findAllDoctor();
     }
 
@@ -79,12 +78,13 @@ public class Controller {
 
     // НАЙТИ ДОКТОРОВ ПО СПЕЦИАЛЬННОСТИ
     @GetMapping("/doctor/{specialization}")
-    public List<Doctor> find(@PathVariable ("specialization") String specialization ) {
+    public List<GetDoctors> findDoctorsBySpecialization(@PathVariable ("specialization") String specialization ) {
         return doctorService.findDoctorsBySpecializations(specialization);
     }
 
+    //НАЙТИ ВСЕХ ДОКТОРОВ В БОЛЬНИЦЕ
     @GetMapping("/{hospital}")
-    public List<Doctor> findByHospital(@PathVariable ("hospital") String doctors) {
-        return doctorRepository.allDoctorsByHospital(doctors);
+    public List<GetDoctors> findByHospital(@PathVariable ("hospital") String hospital) {
+        return doctorService.allDoctorsByHospital(hospital);
     }
 }

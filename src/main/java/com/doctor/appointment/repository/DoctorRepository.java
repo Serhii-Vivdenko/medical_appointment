@@ -9,8 +9,6 @@ import java.util.List;
 
 
 public interface DoctorRepository extends JpaRepository<Doctor,Long> {
-
-
     @Query(
             value = "SELECT d.* " +
                     "FROM doctors d " +
