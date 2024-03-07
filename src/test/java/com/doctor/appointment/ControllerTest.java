@@ -6,7 +6,6 @@ import com.doctor.appointment.dto.appointment.GetAllAppointmentByNullPatientDto;
 import com.doctor.appointment.dto.appointment.ToMakeRequestAppointmentDto;
 import com.doctor.appointment.dto.appointment.UpdateRequestAppointmentDto;
 import com.doctor.appointment.service.AppointmentService;
-import com.doctor.appointment.service.DoctorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
@@ -34,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ControllerTest {
     @Autowired
     private AppointmentService appointmentService;
-    @Autowired
-    private DoctorService doctorService;
+
     @Autowired
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

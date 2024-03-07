@@ -33,9 +33,13 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<GetDoctors> findDoctorsBySpecializations(String specialization) {
-        return doctorRepository.findDoctorsBySpecializations(specialization)
-                .stream().map(GetDoctors :: new)
-                .collect(Collectors.toList());
+        List<Doctor> doctors = doctorRepository.findDoctorsBySpecializations(specialization);
+
+        if (doctors.isEmpty()) {
+            throw new EntityNotFoundException("No doctors " + specialization);
+        }
+
+        return doctors.stream().map(GetDoctors::new).collect(Collectors.toList());
     }
 
     @Override

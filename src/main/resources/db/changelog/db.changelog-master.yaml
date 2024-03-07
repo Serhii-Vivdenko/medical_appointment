@@ -9,3 +9,15 @@ databaseChangeLog:
       file: db/changelog/v1/appointments.sql
   - include:
       file: db/changelog/v1/set-appointments.sql
+  - include:
+      file: db/changelog/v1/update-doctors.sql
+  - include:
+      file: db/changelog/v1/specializations.sql
+  - include:
+      file: db/changelog/v1/location.sql
+  - include:
+      file: db/changelog/v1/placeOfWorkDoctors.sql
+  - include:
+      file: db/changelog/v1/update-appointments.sql
+  - include:
+      file: db/changelog/v1/specializationsAndDoctors.sql

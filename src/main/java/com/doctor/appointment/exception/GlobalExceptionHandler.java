@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppointmentAlreadyBooked.class)
     public ResponseEntity<String> handleBadRequestException(AppointmentAlreadyBooked e) {
-        log.info("Appointment already booked");
+        log.warn("Appointment already booked");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
