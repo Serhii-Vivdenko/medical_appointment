@@ -1,45 +1,20 @@
-#
-#server:
-#  error:
-#    include-message: always
-#spring:
-#  liquibase:
-#    enabled: true
-#
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/Doctor_Appointment
-#    username: postgres
-#    password: serhii
-#    driver-class-name: org.postgresql.Driver
-#
-#  jpa:
-#    hibernate:
-#      ddl-auto: none
-#    database: postgresql
-#    show-sql: true
 
 server:
-  port: 9090
   error:
     include-message: always
 spring:
   liquibase:
-    enabled: false
+    enabled: true
+
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:postgresql://localhost:5432/Doctor_Appointment
+    username: postgres
+    password: serhii
+    driver-class-name: org.postgresql.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
+    database: postgresql
     show-sql: true
-
-  h2:
-    console:
-      enabled: true
-
-
 
