@@ -14,6 +14,7 @@ public class GetAllAppointmentByNullPatientDto {
     LocalDateTime endDateTime;
     Long doctorId;
     Long patientId;
+    Long location;
 
     public GetAllAppointmentByNullPatientDto(Appointment appointment) {
         id = appointment.getId();
@@ -21,5 +22,6 @@ public class GetAllAppointmentByNullPatientDto {
         endDateTime = appointment.getEndDateTime();
         doctorId = appointment.getDoctor().getId();
         patientId = (appointment.getPatient() == null) ? null : appointment.getPatient().getId();
+        location = appointment.getLocation().getId();
     }
 }

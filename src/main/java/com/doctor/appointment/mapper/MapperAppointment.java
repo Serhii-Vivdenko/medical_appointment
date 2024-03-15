@@ -3,16 +3,22 @@ package com.doctor.appointment.mapper;
 import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.model.Appointment;
 import com.doctor.appointment.model.Doctor;
+import com.doctor.appointment.model.Location;
 import com.doctor.appointment.model.Patient;
 
 public class MapperAppointment {
     public static Appointment toEntity(CreateRequestAppointmentDto dto) {
         Appointment appointment = new Appointment();
         Doctor doctor = new Doctor();
+        Location location = new Location();
         doctor.setId(dto.getDoctorId());
+        location.setId(dto.getLocation());
+
         appointment.setStartDateTime(dto.getStartDateTime());
         appointment.setEndDateTime(dto.getEndDateTime());
         appointment.setDoctor(doctor);
+        appointment.setLocation(location);
+
         return appointment;
     }
     public static CreateResponseAppointmentDto toDto(Appointment appointment) {
@@ -21,6 +27,7 @@ public class MapperAppointment {
         dto.setStartDateTime(appointment.getStartDateTime());
         dto.setEndDateTime(appointment.getEndDateTime());
         dto.setDoctorId(appointment.getDoctor().getId());
+        dto.setLocation(appointment.getLocation().getId());
         return dto;
     }
 

@@ -12,4 +12,5 @@ public class CreateRequestAppointmentDto {
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
     Long doctorId;
+    Long location;
 }

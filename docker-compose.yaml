@@ -1,0 +1,76 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15.3
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: Doctor_Appointment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: serhii
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Doctor_Appointment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: serhii
+    depends_on:
+      - postgres
+
+  liquibase:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: liquibase
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Doctor_Appointment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: serhii
+
+volumes:
+  pgdata:
+
+
+
+
+#version: '3.9'
+#
+#volumes:
+#  pg_appointment:
+#
+#services:
+#  appointment_db:
+#    image: postgres:15.3
+#    restart: always
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: serhii
+#      POSTGRES_DB: Doctor_Appointment
+##    ports:
+##      - "127.0.0.1:5432:5432"
+#    volumes:
+#      - pg_appointment:/var/lib/postgresql/data
+#
+#  app:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - appointment_db
+#    environment:
+#      SPRING_DATASOURSE_URL: 'jdbc:postgresql://appointment_db:5432/Doctor_Appointment'
+#      JAVA_OPTS: '-Xmx512m'
+
+
