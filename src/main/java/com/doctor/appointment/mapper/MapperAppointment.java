@@ -36,6 +36,11 @@ public class MapperAppointment {
         Appointment updatedAppointment = new Appointment();
         updatedAppointment.setId(appointment.getId());
 
+        Location location = new Location();
+        location.setId(dto.getLocation());
+        updatedAppointment.setLocation(location);
+
+
        if (dto.getPatientId() == null) {
            updatedAppointment.setPatient(null);
        } else {
@@ -74,6 +79,7 @@ public class MapperAppointment {
         } else {
             dto.setPatientId(null); // Если patient равен null, устанавливаем patientId в null
         }
+        dto.setLocation(appointment.getLocation().getId());
         return dto;
     }
 
@@ -87,6 +93,7 @@ public class MapperAppointment {
         toMakeAppointment.setStartDateTime(appointment.getStartDateTime());
         toMakeAppointment.setEndDateTime(appointment.getEndDateTime());
         toMakeAppointment.setPatient(patient);
+        toMakeAppointment.setLocation(appointment.getLocation());
 
         return toMakeAppointment;
     }
@@ -97,6 +104,7 @@ public class MapperAppointment {
         dto.setEndDateTime(appointment.getEndDateTime());
         dto.setDoctorId(appointment.getDoctor().getId());
         dto.setPatientId(appointment.getPatient().getId());
+        dto.setLocation(appointment.getLocation().getId());
         return dto;
     }
 }

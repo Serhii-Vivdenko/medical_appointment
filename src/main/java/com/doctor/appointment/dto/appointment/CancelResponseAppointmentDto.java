@@ -13,6 +13,7 @@ public class CancelResponseAppointmentDto {
     LocalDateTime endDateTime;
     Long doctorId;
     Long patientId;
+    Long location;
 
     public CancelResponseAppointmentDto(Appointment appointment) {
         id = appointment.getId();
@@ -20,5 +21,6 @@ public class CancelResponseAppointmentDto {
         endDateTime = appointment.getEndDateTime();
         doctorId = appointment.getDoctor().getId();
         patientId = (appointment.getPatient() == null) ? null : appointment.getPatient().getId();
+        location = appointment.getLocation().getId();
     }
 }

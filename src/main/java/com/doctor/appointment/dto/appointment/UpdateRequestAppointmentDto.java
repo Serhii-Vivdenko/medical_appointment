@@ -1,6 +1,5 @@
 package com.doctor.appointment.dto.appointment;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +12,5 @@ public class UpdateRequestAppointmentDto {
     LocalDateTime endDateTime;
     Long doctorId;
     Long patientId;
+    Long location;
 }
