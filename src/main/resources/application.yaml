@@ -6,10 +6,10 @@ spring:
   liquibase:
     enabled: true
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/Doctor_Appointment
+    url: jdbc:postgresql://localhost:5433/Appointment
     username: postgres
-    password: serhii
+    password: postgres
+  datasource:
     driver-class-name: org.postgresql.Driver
 
   jpa:
