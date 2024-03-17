@@ -5,11 +5,10 @@ server:
 spring:
   liquibase:
     enabled: true
-
+  datasource:
     url: jdbc:postgresql://localhost:5433/Appointment
     username: postgres
     password: postgres
-  datasource:
     driver-class-name: org.postgresql.Driver
 
   jpa:
