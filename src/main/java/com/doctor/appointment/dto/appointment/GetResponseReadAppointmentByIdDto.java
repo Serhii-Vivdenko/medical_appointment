@@ -13,7 +13,6 @@ public class GetResponseReadAppointmentByIdDto {
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
     Long doctorId;
-
     Long patientId;
 
     public GetResponseReadAppointmentByIdDto(Appointment appointment) {

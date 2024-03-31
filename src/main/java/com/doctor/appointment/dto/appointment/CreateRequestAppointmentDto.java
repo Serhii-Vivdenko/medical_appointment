@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-//@Builder
 public class CreateRequestAppointmentDto {
-
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
     Long doctorId;

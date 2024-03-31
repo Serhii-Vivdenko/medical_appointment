@@ -3,7 +3,6 @@ package com.doctor.appointment.controller;
 import com.doctor.appointment.dto.appointment.*;
 import com.doctor.appointment.dto.doctor.GetDoctors;
 import com.doctor.appointment.model.Appointment;
-import com.doctor.appointment.repository.DoctorRepository;
 import com.doctor.appointment.service.AppointmentService;
 import com.doctor.appointment.service.DoctorService;
 import lombok.AllArgsConstructor;
@@ -15,11 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor // конструктор внедряет зависимость
+@CrossOrigin(origins = "*")
 public class Controller {
 
     private DoctorService doctorService;
     private AppointmentService appointmentService;
-    private DoctorRepository doctorRepository;
 
     //READ APPOINTMENT BY ID
     @GetMapping("/read/{read-id}")

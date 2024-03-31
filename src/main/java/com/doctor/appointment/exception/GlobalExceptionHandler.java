@@ -18,15 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CannotDeleteAppointmentException.class)
     public ResponseEntity<String> handleCannotDeleteAppointmentException(CannotDeleteAppointmentException e) {
-        log.info("Appointment with existing patient cannot be deleted");
+        log.warn("Appointment with existing patient cannot be deleted");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
-
-
-//    @ExceptionHandler(NullEntityReferenceException.class)
-//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-//    public ModelAndView nullEntityReferenceExceptionHandler(HttpServletRequest request, NullEntityReferenceException exception) {
-//        return getModelAndView(request, HttpStatus.BAD_REQUEST, exception);
-//    }
-//
 }
